@@ -8,6 +8,8 @@ namespace MvcWorkspace.Data
         public AppDbContext(DbContextOptions options) : base(options)
         {
         }
+        // DbSet'ler
         public DbSet<Expense> Expenses { get; set; }
+        public DbSet<ExpenseCategory> ExpenseCategories { get; set; }
     }
 }

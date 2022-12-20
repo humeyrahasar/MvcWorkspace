@@ -4,7 +4,7 @@
 
 namespace MvcWorkspace.Migrations
 {
-    public partial class initial2 : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +14,7 @@ namespace MvcWorkspace.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ExpenceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ExpenseName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Amount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

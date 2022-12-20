@@ -1,0 +1,60 @@
+﻿@model MvcWorkspace.Models.ViewModels.ExpenseVM
+
+<form method="post" asp-action="AddOrUpdate">
+    <div class="p-3 col-12">
+        <input type="hidden" asp-for="Expense.Id" />
+        @{
+            if (Model.Expense.Id == 0)
+            {
+                <h2 class="text-black-50 pl-3">Add Expense </h2>
+            }
+            else
+            {
+                <h2 class="text-black-50 pl-3">Update Expense </h2>
+            }
+        }
+        <div class="row col-6">
+            <div class="pb-3">
+                <label asp-for="Expense.ExpenseName" class="form-label"></label>
+                <input asp-for="Expense.ExpenseName" class="form-control" />
+                <span asp-validation-for="Expense.ExpenseName" class="text-danger"></span>
+            </div>
+            <div class="pb-3">
+                <label asp-for="Expense.Amount" class="form-label"></label>
+                <input asp-for="Expense.Amount" class="form-control" />
+                <span asp-validation-for="Expense.Amount" class="text-danger"></span>
+            </div>
+            <div class="pb-3">
+                <label asp-for="Expense.ExpenseCategoryId" class="form-label"></label>
+                <select asp-for="Expense.ExpenseCategoryId" class="form-control" asp-items="@Model.CategoryDropDown">
+                    <option disabled selected>-- Select  Category -- </option>
+                </select>
+                <span asp-validation-for="Expense.ExpenseCategoryId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3 text-start">
+                <a asp-action="Index" class="btn btn-outline-primary w-100 ">Back</a>
+            </div>
+            <div class="col-3 text-end">
+
+                @{
+                    if (Model.Expense.Id == 0)
+                    {
+                        <input type="submit" class="btn btn-info w-100" value="Create" />
+                    }
+                    else
+                    {
+                        <input type="submit" class="btn btn-info w-100" value="Update" />
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

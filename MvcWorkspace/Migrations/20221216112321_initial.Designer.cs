@@ -11,7 +11,7 @@ using MvcWorkspace.Data;
 namespace MvcWorkspace.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221216102339_initial")]
+    [Migration("20221216112321_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,6 +22,26 @@ namespace MvcWorkspace.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("MvcWorkspace.Models.Expense", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ExpenseName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Expenses");
+                });
 #pragma warning restore 612, 618
         }
     }

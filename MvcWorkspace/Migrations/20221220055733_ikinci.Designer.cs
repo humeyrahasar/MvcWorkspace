@@ -11,8 +11,8 @@ using MvcWorkspace.Data;
 namespace MvcWorkspace.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221216102649_initial2")]
-    partial class initial2
+    [Migration("20221220055733_ikinci")]
+    partial class ikinci
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,13 +34,46 @@ namespace MvcWorkspace.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<string>("ExpenceName")
+                    b.Property<int>("ExpenseCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ExpenseName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ExpenseCategoryId");
+
                     b.ToTable("Expenses");
+                });
+
+            modelBuilder.Entity("MvcWorkspace.Models.ExpenseCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ExpenseCategories");
+                });
+
+            modelBuilder.Entity("MvcWorkspace.Models.Expense", b =>
+                {
+                    b.HasOne("MvcWorkspace.Models.ExpenseCategory", "ExpenseCategory")
+                        .WithMany()
+                        .HasForeignKey("ExpenseCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ExpenseCategory");
                 });
 #pragma warning restore 612, 618
         }
